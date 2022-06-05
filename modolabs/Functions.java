@@ -1,4 +1,4 @@
-package ngrokUpdate;
+package modolabs;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
@@ -20,10 +20,10 @@ public class Functions {
 
 	@SuppressWarnings("deprecation")
 	public void initializeDriver() {
-		System.setProperty("webdriver.chrome.driver", "E:\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "E:\\Softwares\\chromedriver.exe");
 		driver = new ChromeDriver();  
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		wait = new WebDriverWait(driver,5);
+		wait = new WebDriverWait(driver, 5);
 	}
 
 	public void launch(String url) {
@@ -55,7 +55,7 @@ public class Functions {
 	public void replace() {
 		WebElement link = driver.findElement(By.name("componentOption_apiURL"));
 		link.clear();
-		System.out.println("Sending -->  " +(apiUrl));
+		System.out.println("Sending --> " +(apiUrl));
 		link.sendKeys(apiUrl);
 	}
 
@@ -68,10 +68,36 @@ public class Functions {
 	}
 
 	public boolean isDeployed() {
-		if (driver.getPageSource().contains("This module has changes ready for you to deploy")) {
-			return false;
+		if (driver.getPageSource().contains("This module has been deployed to Test") || driver.getPageSource().contains("This module has been deployed to Production")) {
+			return true;
 		}
-		return true;		
+		return false;		
+	}
+
+	public boolean isDeployed (String sheetName) {
+		switch(sheetName) {
+		case "modo4v3":
+			if(driver.getPageSource().contains("This module has been deployed to Test")) 
+				return true;
+			else  
+				return false;
+		case "modo4v2":
+			if(driver.getPageSource().contains("This module has been deployed to Test")) 
+				return true;
+			else  
+				return false;
+		case "btw":
+			if(driver.getPageSource().contains("This module has been deployed to Test")) 
+				return true;
+			else  
+				return false;
+		case "btwTest":
+			if(driver.getPageSource().contains("This module has been deployed to Production")) 
+				return true;
+			else  
+				return false;
+		}
+		return false;
 	}
 
 	public void save() throws InterruptedException {
@@ -114,9 +140,6 @@ public class Functions {
 	}
 
 	public void btwTestDeploy() {
-		//		wait.until(ExpectedConditions.elementToBeClickable (By.xpath("//*[@id=\\\"kgoui_Rcontent_I0_Rcontent_I0_Rbuttons_I1\\\"]/a/span")));
-		//		driver.findElement(By.xpath("//*[@id=\"kgoui_Rcontent_I0_Rcontent_I0_Rbuttons_I1\"]/a/span")).click();
-		//		wait.until(ExpectedConditions.elementToBeClickable (By.xpath("//span[text()=\\\"Deploy\\\"]")));
 		driver.findElement(By.xpath("//span[text()=\"Deploy\"]")).click();
 		acceptAlert();
 		wait.until(ExpectedConditions.elementToBeClickable (By.xpath("//*[@id=\"kgoui_Rcontent_I0_Rcontent_I0_Rbuttons_I1\"]/button/span")));
@@ -128,12 +151,13 @@ public class Functions {
 		try {
 			driver.switchTo().alert().accept();			
 		}
-		catch(NoAlertPresentException Ex) {
-			System.out.println(Ex);
+		catch(NoAlertPresentException ex) {
+			System.out.println(ex);
 		}
 	}
 
 	void close() {
+		wait.until(ExpectedConditions.visibilityOf((WebElement) By.name("componentOption_apiURL")));
 		driver.close();
 	}	
 }
