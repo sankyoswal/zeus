@@ -1,4 +1,4 @@
-package ngrokUpdate;
+package modolabs;
 
 import java.io.IOException;
 
@@ -14,7 +14,6 @@ public class Logic {
 		Constants c = new Constants();		
 		sheetReader sheet = new sheetReader();
 
-
 		for (int j=0; j<c.sheets.length; j++) {
 
 			if(c.sheets[j][1].equals("0"))
@@ -22,7 +21,7 @@ public class Logic {
 			else {
 				flags = f.getFlags(c.sheets[j][0]);
 				if(flags == null) {
-					System.out.println("Array of name " +c.sheets[j][0]+ " not found");
+					System.out.println("Flags for " +c.sheets[j][0]+ " not found");
 					continue;
 				}
 
@@ -35,8 +34,8 @@ public class Logic {
 					System.out.println("Data length is not matching. Please check if all the data is present");
 					System.exit(0);
 				}
-				else 
-					length = modules.length; 
+				else
+					length = data.length; 
 
 				for(int i=0; i<length; i++) {
 					try {
@@ -51,19 +50,25 @@ public class Logic {
 						f.newLink(c.ngrok, ext);
 
 						if(f.verify()) {
-							System.out.println("Link is already upto date for " +modules[i]);
-							//				if(!f.isDeployed()) {
-							//					f.deploy();
-							//					f.close();
-							//				}
-							continue;
+							System.out.println(modules[i]+ "URL is already updated");
+							if(f.isDeployed()) {
+								System.out.println(modules[i]+ "is already deployed");
+								//f.close();
+								continue;
+							}
+							else {
+								System.out.println(modules[i]+ " is not deployed, deploying now");
+								f.deploy();
+								//f.close();
+								continue;
+							}
 						}
 
 						else {		
 							f.replace();
 							f.save();
 							f.deploy();
-							f.close();
+							//f.close();
 						}
 					}
 					catch (Exception e) {
