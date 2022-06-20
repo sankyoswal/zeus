@@ -2,10 +2,11 @@ package modolabs;
 
 public class Constants {
 
-	public String ngrok = "https://2c2e-27-57-255-175.ngrok.io";
-	
+public String ngrok = "https://2c2e-27-57-255-175.ngrok.io";
+
+	//Path of the excel sheet
 	public static String sheetPath = "E:\\Sandbox links.xlsx";
-//	public static String sheetPath = "E:\\Sandbox links(archita).xlsx";
+  //public static String sheetPath = "E:\\Sandbox links(archita).xlsx";
 	//public String sheetName = "modo4v3";
 	
 	//following array decides which sandbox needs to be updated
@@ -15,7 +16,6 @@ public class Constants {
 	//{index, adminHome, siteListing, timeSlots, adminListing, manage, upload, download, qr, buddy}
 	public int[] modo4v3 = {1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
 	public int[] modo4v2 = {1, 0, 1, 1, 0, 0, 0, 0, 0, 0};
-//	public int[] btw =     {1, 0, 1, 1, 0, 0, 0, 0, 0, 0};
 	public int[] btwTest = {1, 0, 1, 1, 0, 0, 0, 0, 0, 0};
 	public int[] btw = {1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 
