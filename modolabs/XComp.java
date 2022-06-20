@@ -62,16 +62,19 @@ public class XComp {
 				inputBox.sendKeys(c.ngrok + extSelf);
 				inputBox.sendKeys(Keys.ENTER);
 				Thread.sleep(2500);
+				continue;
 			case "today":
 				inputBox.clear();
 				inputBox.sendKeys(c.ngrok + extToday);
 				inputBox.sendKeys(Keys.ENTER);
 				Thread.sleep(2500);
+				continue;
 			case "buddy":
 				inputBox.clear();
 				inputBox.sendKeys(c.ngrok + extBuddy);
 				inputBox.sendKeys(Keys.ENTER);
 				Thread.sleep(2500);
+				continue;
 			}
 
 		}
